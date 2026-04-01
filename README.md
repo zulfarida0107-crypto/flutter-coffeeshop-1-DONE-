@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # flutter_coffeeshop
 
 A new Flutter project.
@@ -15,3 +16,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# flutter-coffeeshop-1
+file asli yang dapat di running (DONE Version)
+>>>>>>> 6ad8b3be9a9a164150685e826a0d4f22655b32b9
