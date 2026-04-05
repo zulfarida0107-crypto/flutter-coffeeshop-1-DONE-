@@ -1,5 +1,7 @@
+// ISI KODE FILE C:\Dokumen\flutter-coffeeshop-1 (DONE)\lib\models\pesan_kontak_entity.dart
+
 class PesanKontakEntity {
-  final int id;
+  final int? id;
   final String nama;
   final String email;
   final String subjek;
@@ -7,7 +9,7 @@ class PesanKontakEntity {
   final String? tanggalDikirim;
 
   PesanKontakEntity({
-    required this.id,
+    this.id,
     required this.nama,
     required this.email,
     required this.subjek,

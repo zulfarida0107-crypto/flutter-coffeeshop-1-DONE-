@@ -285,7 +285,8 @@ class _MenuProdukPageState extends State<MenuProdukPage> {
               StatefulBuilder(
                 builder: (context, setStateSB) {
                   return DropdownButtonFormField<String>(
-                    value: selectedKategori, // Perbaikan: value bukan Value
+                    initialValue:
+                        selectedKategori, // Perbaikan: value bukan Value
                     decoration: const InputDecoration(
                       labelText: "Kategori",
                       border:

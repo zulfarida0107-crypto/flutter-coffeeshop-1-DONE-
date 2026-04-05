@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'data/database_helper.dart';
 import 'screens/login_page.dart';
+import 'screens/desain_pesanan_page.dart'; // Import halaman desain
 
 void main() async {
-  // Wajib ditambahkan agar Flutter siap menjalankan kode async sebelum UI tampil
+  // 1. Wajib ditambahkan agar Flutter siap menjalankan kode async sebelum UI tampil
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Menyalakan dan menginisialisasi Database SQLite kita
+  // 2. Inisialisasi Database
   await DatabaseHelper.initDatabase();
 
-  runApp(const MyApp());
+  // 3. Cek sesi terakhir di SharedPreferences
+  final prefs = await SharedPreferences.getInstance();
+  bool isInDesainPage = prefs.getBool('is_in_desain_page') ?? false;
+
+  // 4. Jalankan aplikasi dengan menentukan halaman awal
+  runApp(
+    MyApp(
+      initialPage: isInDesainPage
+          ? const DesainPesananPage()
+          : const LoginPage(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final Widget initialPage;
+  const MyApp({super.key, required this.initialPage});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -35,27 +49,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // Saat aplikasi disembunyikan ke background/riwayat atau keluar
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    // Logika Session Protection
     if (state == AppLifecycleState.paused) {
-      navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-        (route) => false,
-      );
+      final prefs = await SharedPreferences.getInstance();
+      bool isInDesainPage = prefs.getBool('is_in_desain_page') ?? false;
+
+      // KHUSUS: Jika sedang TIDAK di halaman desain, lempar ke Login saat background
+      // Ini memenuhi syarat 2B (halaman lain tetap harus login ulang)
+      if (!isInDesainPage) {
+        navigatorKey.currentState?.pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+          (route) => false,
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigatorKey, // Digunakan agar bisa navigasi secara global
-      title: 'Admin Coffeeshop',
-      // Kita pakai warna tema bernuansa kopi (brown)
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Coffee Shop Zulfa',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      // Menggunakan initialPage yang dikirim dari fungsi main()
+      home: widget.initialPage,
     );
   }
 }

@@ -3,7 +3,9 @@ import '../data/database_helper.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final bool isGuestMode;
+
+  const LoginPage({super.key, this.isGuestMode = false}); // ✅ FIX
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -12,29 +14,28 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool _obsecurePassword = true;
+  bool _obscurePassword = true; // ✅ typo dibenerin
 
   void _login() async {
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
     if (username.isEmpty || password.isEmpty) {
-      _showWarning("Harap mengisi data didalam password dan username!");
+      _showWarning("Harap mengisi username dan password!");
       return;
     }
 
     var user = await DatabaseHelper.getInstance().loginUser(username, password);
 
     if (user != null) {
-      if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
-      }
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
     } else {
       _showWarning(
-        "Tidak bisa login! Silakan cek kembali password dan username yang benar.",
+        "Tidak bisa login! Silakan cek kembali username dan password.",
       );
     }
   }
@@ -60,9 +61,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    usernameController.dispose(); // ✅ FIX
+    passwordController.dispose(); // ✅ FIX
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[50], // Background tema kopi lembut
+      backgroundColor: Colors.brown[50],
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -104,19 +112,19 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 16),
                     TextField(
                       controller: passwordController,
-                      obscureText: _obsecurePassword,
+                      obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         labelText: "Password",
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obsecurePassword
+                            _obscurePassword
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                           ),
                           onPressed: () {
                             setState(() {
-                              _obsecurePassword = !_obsecurePassword;
+                              _obscurePassword = !_obscurePassword;
                             });
                           },
                         ),

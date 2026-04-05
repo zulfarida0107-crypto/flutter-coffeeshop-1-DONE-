@@ -1,3 +1,5 @@
+// ISI KODE FILE C:\Dokumen\flutter-coffeeshop-1 (DONE)\lib\data\database_helper.dart
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -29,7 +31,9 @@ class DatabaseHelper {
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
           try {
-            await db.execute("ALTER TABLE ${PesananEntity.TABLE_NAME} ADD COLUMN ${PesananEntity.COL_DETAIL_PESANAN_KEY} TEXT DEFAULT '[]'");
+            await db.execute(
+              "ALTER TABLE ${PesananEntity.TABLE_NAME} ADD COLUMN ${PesananEntity.COL_DETAIL_PESANAN_KEY} TEXT DEFAULT '[]'",
+            );
           } catch (e) {
             // Abaikan jika sudah ada
           }
@@ -356,7 +360,10 @@ class DatabaseHelper {
     }
   }
 
-  Future<bool> updateDesainPesananWithOldId(int oldId, DesainPesananEntity entity) async {
+  Future<bool> updateDesainPesananWithOldId(
+    int oldId,
+    DesainPesananEntity entity,
+  ) async {
     try {
       int rowAffected = await _database.update(
         DesainPesananEntity.TABLE_NAME,
@@ -386,11 +393,10 @@ class DatabaseHelper {
   // ==========================================
   // 5. DAFTAR PESAN MASUK / KONTAK (Hanya Delete & View Detail)
   // ==========================================
-
   Future<bool> createPesanKontak(PesanKontakEntity entity) async {
     var mapData = entity.toMap();
-    if (mapData[PesanKontakEntity.COL_ID_KEY] == 0) {
-      mapData[PesanKontakEntity.COL_ID_KEY] = null;
+    if (mapData[PesanKontakEntity.COL_ID_KEY] == null) {
+      mapData.remove(PesanKontakEntity.COL_ID_KEY);
     }
     try {
       await _database.insert(PesanKontakEntity.TABLE_NAME, mapData);
@@ -426,7 +432,8 @@ class DatabaseHelper {
     }
   }
 
-  Future<bool> deletePesanKontak(int id) async {
+  Future<bool> deletePesanKontak(int? id) async {
+    if (id == null) return false;
     try {
       await _database.delete(
         PesanKontakEntity.TABLE_NAME,
@@ -442,7 +449,9 @@ class DatabaseHelper {
   Future<bool> deleteAllPesanKontak() async {
     try {
       await _database.delete(PesanKontakEntity.TABLE_NAME);
-      await _database.execute("DELETE FROM sqlite_sequence WHERE name = '${PesanKontakEntity.TABLE_NAME}'");
+      await _database.execute(
+        "DELETE FROM sqlite_sequence WHERE name = '${PesanKontakEntity.TABLE_NAME}'",
+      );
       return true;
     } catch (e) {
       return false;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/database_helper.dart';
 import '../models/pesanan_entity.dart';
 import '../models/menu_produk_entity.dart';
-import 'pembayaran_pesanan_page.dart'; // Sesuaikan dengan path file Anda
+// Sesuaikan dengan path file Anda
 
 class DaftarPesananPage extends StatefulWidget {
   const DaftarPesananPage({super.key});
@@ -24,7 +24,9 @@ class _DaftarPesananPageState extends State<DaftarPesananPage> {
   void _refreshData() async {
     var data = await DatabaseHelper.getInstance().getAllPesanan();
     setState(() {
-      listPesanan = data;
+      listPesanan = data
+          .where((p) => p.statusPesanan.toLowerCase() == 'baru')
+          .toList();
     });
   }
 

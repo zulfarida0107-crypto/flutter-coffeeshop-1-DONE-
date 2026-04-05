@@ -5,6 +5,7 @@ import 'daftar_pesanan_page.dart';
 import 'desain_pesanan_page.dart';
 import 'pesan_kontak_page.dart';
 import 'pembayaran_pesanan_page.dart';
+import 'login_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,93 +18,96 @@ class HomePage extends StatelessWidget {
           'Dashboard Admin Coffeeshop',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.brown[700],
+        backgroundColor: Colors.brown,
         centerTitle: true,
-        // Tombol logout di AppBar sudah dihapus sesuai instruksi
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.white),
+            onPressed: () {
+              // ✅ PINDAH KE LOGIN & HAPUS SEMUA HALAMAN SEBELUMNYA
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false,
+              );
+            },
+          ),
+        ],
       ),
-      body: Column(
+
+      body: GridView.count(
+        padding: const EdgeInsets.all(18),
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.8,
         children: [
-          // Bagian Grid Menu
-          Expanded(
-            child: GridView.count(
-              padding: const EdgeInsets.all(16),
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              children: [
-                _buildMenuCard(
-                  context,
-                  'Manajemen User',
-                  Icons.people,
-                  Colors.brown,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ManajemenUserPage(),
-                    ),
-                  ),
-                ),
-                _buildMenuCard(
-                  context,
-                  'Daftar Menu Produk',
-                  Icons.coffee,
-                  Colors.brown,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MenuProdukPage(),
-                    ),
-                  ),
-                ),
-                _buildMenuCard(
-                  context,
-                  'Daftar Pesanan',
-                  Icons.shopping_cart,
-                  Colors.brown,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DaftarPesananPage(),
-                    ),
-                  ),
-                ),
-                _buildMenuCard(
-                  context,
-                  'Daftar Desain Pesanan (Kue)',
-                  Icons.cake,
-                  Colors.brown,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DesainPesananPage(),
-                    ),
-                  ),
-                ),
-                _buildMenuCard(
-                  context,
-                  'Daftar Pesan Masuk',
-                  Icons.mail,
-                  Colors.brown,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PesanKontakPage(),
-                    ),
-                  ),
-                ),
-                _buildMenuCard(
-                  context,
-                  'Pembayaran Pesanan',
-                  Icons.payment,
-                  Colors.brown,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PembayaranPesananPage(),
-                    ),
-                  ),
-                ),
-              ],
+          _buildMenuCard(
+            context,
+            'Manajemen User',
+            Icons.people,
+            Colors.brown,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ManajemenUserPage(),
+              ),
+            ),
+          ),
+          _buildMenuCard(
+            context,
+            'Daftar Menu Produk',
+            Icons.coffee,
+            Colors.brown,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MenuProdukPage()),
+            ),
+          ),
+          _buildMenuCard(
+            context,
+            'Daftar Pesanan',
+            Icons.shopping_cart,
+            Colors.brown,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DaftarPesananPage(),
+              ),
+            ),
+          ),
+          _buildMenuCard(
+            context,
+            'Daftar Desain Pesanan (Kue)',
+            Icons.cake,
+            Colors.brown,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DesainPesananPage(),
+              ),
+            ),
+          ),
+          _buildMenuCard(
+            context,
+            'Daftar Pesan Masuk',
+            Icons.mail,
+            Colors.brown,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const PesanKontakPage()),
+            ),
+          ),
+          _buildMenuCard(
+            context,
+            'Pembayaran Pesanan',
+            Icons.payment,
+            Colors.brown,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PembayaranPesananPage(),
+              ),
             ),
           ),
         ],
@@ -118,28 +122,31 @@ class HomePage extends StatelessWidget {
     Color color,
     VoidCallback onTapAction,
   ) {
-    return InkWell(
-      onTap: onTapAction,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 50, color: color),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
+    return Card(
+      elevation: 4,
+      color: const Color(0xFFFFF3F0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        onTap: onTapAction,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 48, color: color),
+              const SizedBox(height: 12),
+              Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
+                  color: Colors.brown[900],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

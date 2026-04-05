@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // ✅ SUDAH ADA
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../data/database_helper.dart';
@@ -20,9 +21,31 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
   void initState() {
     super.initState();
     _refreshData();
+    _saveSession(); // ✅ TAMBAHAN
   }
 
-  // Asumsi fungsi di database_helper.dart bernama getAllDesainPesanan()
+  // ✅ TAMBAHAN: simpan session
+  void _saveSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('is_in_desain_page', true);
+  }
+
+  // ✅ TAMBAHAN: hapus session saat keluar
+  @override
+  void dispose() {
+    _clearSession();
+    super.dispose();
+  }
+
+  void _clearSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('is_in_desain_page');
+  }
+
+  // ===========================
+  // KODE ASLI (TIDAK DIUBAH)
+  // ===========================
+
   void _refreshData() async {
     var data = await DatabaseHelper.getInstance().getAllDesainPesanan();
     setState(() {
@@ -38,7 +61,7 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
           'Daftar Desain Pesanan (Kue)',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.brown[700], // Tema Pink
+        backgroundColor: Colors.brown[700],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: listDesain.isEmpty
@@ -65,13 +88,9 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(desain.keterangan ?? "Tidak ada keterangan"),
-
-                    // FITUR VIEW DETAIL
                     onTap: () {
                       _showDetailDialog(desain);
                     },
-
-                    // Tombol Edit & Delete
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -81,7 +100,6 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
                             _showFormDialog(desain: desain);
                           },
                         ),
-                        // Tombol Delete
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {

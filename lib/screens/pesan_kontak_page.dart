@@ -1,3 +1,5 @@
+// ISI KODE FILE C:\Dokumen\flutter-coffeeshop-1 (DONE)\lib\screens\pesan_kontak_page.dart
+
 import 'package:flutter/material.dart';
 import '../data/database_helper.dart';
 import '../models/pesan_kontak_entity.dart';
@@ -19,14 +21,16 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
   }
 
   void _forceInjectOnce() async {
-    await DatabaseHelper.getInstance().deleteAllPesanKontak();
-    await _injectDummyData();
+    var existing = await DatabaseHelper.getInstance().getAllPesanKontak();
+    if (existing.isEmpty) {
+      await _injectDummyData();
+    }
     _refreshData();
   }
 
-  // Fungsi buat ambil data terbaru dari database
   void _refreshData() async {
     var data = await DatabaseHelper.getInstance().getAllPesanKontak();
+    if (!mounted) return;
     setState(() {
       listPesan = data;
     });
@@ -35,13 +39,11 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
   String formatWaktu(String? waktuUtc) {
     if (waktuUtc == null || waktuUtc.isEmpty) return '-';
     try {
-      // Waktu SQLite CURRENT_TIMESTAMP adalah UTC, biasanya berformat 'YYYY-MM-DD HH:MM:SS'
       String formattedUtc = waktuUtc.replaceFirst(' ', 'T');
       if (!formattedUtc.endsWith('Z')) {
         formattedUtc += 'Z';
       }
       DateTime parsedDate = DateTime.parse(formattedUtc).toLocal();
-
       String duaDigit(int n) => n.toString().padLeft(2, '0');
       return "${duaDigit(parsedDate.day)}/${duaDigit(parsedDate.month)}/${parsedDate.year} ${duaDigit(parsedDate.hour)}:${duaDigit(parsedDate.minute)}";
     } catch (e) {
@@ -52,7 +54,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
   Future<void> _injectDummyData() async {
     final dummyData = [
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Andi",
         email: "andi@email.com",
         subjek: "Komplain Pelayanan",
@@ -63,7 +65,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Budi",
         email: "budi@email.com",
         subjek: "Tanya Promo",
@@ -74,7 +76,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Citra",
         email: "citra@email.com",
         subjek: "Saran Menu",
@@ -85,7 +87,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Dewa",
         email: "dewa@email.com",
         subjek: "Sewa Tempat",
@@ -96,7 +98,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Eka",
         email: "eka@email.com",
         subjek: "Kualitas Produk",
@@ -107,7 +109,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Faisal",
         email: "faisal@email.com",
         subjek: "Jam Operasional",
@@ -118,7 +120,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Gita",
         email: "gita@email.com",
         subjek: "Lowongan Kerja",
@@ -129,7 +131,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Hasan",
         email: "hasan@email.com",
         subjek: "Konfirmasi Pembayaran",
@@ -140,7 +142,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Nisa",
         email: "nisa@email.com",
         subjek: "Kemitraan",
@@ -151,7 +153,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ).toUtc().toIso8601String(),
       ),
       PesanKontakEntity(
-        id: 0,
+        id: null,
         nama: "Reno",
         email: "reno@email.com",
         subjek: "Varian Biji Kopi",
@@ -176,15 +178,13 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
           'Daftar Pesan Masuk',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.brown[700], // Tema Hijau
+        backgroundColor: Colors.brown[700],
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh, color: Colors.white),
-            tooltip: "Reset Database & Inject Data",
-            onPressed: () async {
-              await DatabaseHelper.getInstance().deleteAllPesanKontak();
-              await _injectDummyData();
+            tooltip: "Refresh Data",
+            onPressed: () {
               _refreshData();
             },
           ),
@@ -233,19 +233,15 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
                         ),
                       ],
                     ),
-
-                    // FITUR VIEW DETAIL (Klik untuk baca pesan lengkap)
                     onTap: () {
                       _showDetailDialog(kotakPesan);
                     },
-
-                    // FITUR DELETE (Hanya ada tombol hapus saja sekarang)
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
+                          builder: (ctx) => AlertDialog(
                             title: const Text(
                               "Konfirmasi Hapus",
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -256,9 +252,9 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
                             ),
                             actions: [
                               TextButton(
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () => Navigator.pop(ctx),
                                 child: const Text(
-                                  "tidak",
+                                  "Tidak",
                                   style: TextStyle(color: Colors.grey),
                                 ),
                               ),
@@ -267,23 +263,24 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
                                   backgroundColor: Colors.red,
                                 ),
                                 onPressed: () async {
-                                  await DatabaseHelper.getInstance()
-                                      .deletePesanKontak(kotakPesan.id);
-                                  if (context.mounted) {
-                                    Navigator.pop(context);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Data berhasil dihapus permanen",
-                                        ),
-                                        backgroundColor: Colors.brown,
-                                      ),
-                                    );
+                                  if (kotakPesan.id != null) {
+                                    await DatabaseHelper.getInstance()
+                                        .deletePesanKontak(kotakPesan.id);
                                   }
+                                  if (!ctx.mounted) return;
+                                  Navigator.pop(ctx);
+                                  ScaffoldMessenger.of(ctx).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "Data berhasil dihapus permanen",
+                                      ),
+                                      backgroundColor: Colors.brown,
+                                    ),
+                                  );
                                   _refreshData();
                                 },
                                 child: const Text(
-                                  "ya",
+                                  "Ya",
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -296,15 +293,13 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
                 );
               },
             ),
-      // Tombol FloatingActionButton (Tambah) sudah dihapus sesuai logikamu
     );
   }
 
-  // --- POP-UP UNTUK VIEW DETAIL (BACA PESAN) ---
   void _showDetailDialog(PesanKontakEntity pesanKontak) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (ctx) => AlertDialog(
         title: const Text(
           "Detail Pesan",
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -358,14 +353,14 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(ctx),
             child: const Text("Tutup", style: TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.brown),
             onPressed: () {
-              Navigator.pop(context); // Tutup popup detail dulu
-              _showReplyDialog(pesanKontak); // Buka popup balas
+              Navigator.pop(ctx);
+              _showReplyDialog(pesanKontak);
             },
             child: const Text("Balas", style: TextStyle(color: Colors.white)),
           ),
@@ -374,13 +369,12 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
     );
   }
 
-  // --- POP-UP UNTUK MEMBALAS PESAN ---
   void _showReplyDialog(PesanKontakEntity pesanKontak) {
     TextEditingController balasanController = TextEditingController();
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (ctx) => AlertDialog(
         title: const Text(
           "Kirim Balasan",
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -409,7 +403,7 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(ctx),
             child: const Text("Batal", style: TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
@@ -417,9 +411,8 @@ class _PesanKontakPageState extends State<PesanKontakPage> {
               backgroundColor: const Color.fromRGBO(121, 85, 72, 1),
             ),
             onPressed: () {
-              // Simulasi pengiriman balasan
-              Navigator.pop(context); // Tutup popup balas
-              ScaffoldMessenger.of(context).showSnackBar(
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(ctx).showSnackBar(
                 SnackBar(
                   content: Text(
                     "Balasan berhasil dikirim ke ${pesanKontak.email}",
