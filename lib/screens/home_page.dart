@@ -24,17 +24,51 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
-              // ✅ PINDAH KE LOGIN & HAPUS SEMUA HALAMAN SEBELUMNYA
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-                (route) => false,
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text(
+                    "Konfirmasi Keluar Akun",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  content: const Text(
+                    "Apakah Anda Yakin ngin Keluar?",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        "Tidak",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context); // tutup dialog
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                          (route) => false, // hapus semua stack
+                        );
+                      },
+                      child: const Text(
+                        "Ya",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),
         ],
       ),
-
       body: GridView.count(
         padding: const EdgeInsets.all(18),
         crossAxisCount: 2,
@@ -78,7 +112,7 @@ class HomePage extends StatelessWidget {
           ),
           _buildMenuCard(
             context,
-            'Daftar Desain Pesanan (Kue)',
+            'Daftar Desain Pesanan (Kue Custom)',
             Icons.cake,
             Colors.brown,
             () => Navigator.push(

@@ -204,7 +204,7 @@ class _MenuProdukPageState extends State<MenuProdukPage> {
       bgColor = const Color(0xFF6DA4DE);
     } else if (lowerKategori == 'pastry') {
       bgColor = const Color(0xFFE692CF);
-    } else if (lowerKategori == 'kue kustom') {
+    } else if (lowerKategori == 'kue custom') {
       bgColor = const Color(0xFFAC92ED);
     } else {
       bgColor = Colors.grey;
@@ -245,7 +245,7 @@ class _MenuProdukPageState extends State<MenuProdukPage> {
     );
 
     // Perbaikan logika penentuan kategori awal
-    List<String> kategoriList = ['Kopi', 'Non-Kopi', 'Pastry', 'Kue Kustom'];
+    List<String> kategoriList = ['Kopi', 'Non-Kopi', 'Pastry', 'Kue Custom'];
     String selectedKategori = (isEdit && kategoriList.contains(menu.kategori))
         ? menu.kategori
         : 'Kopi';

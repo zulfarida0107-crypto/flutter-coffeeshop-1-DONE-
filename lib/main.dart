@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         useMaterial3: true,
       ),
       // Menggunakan initialPage yang dikirim dari fungsi main()
-      home: widget.initialPage,
+      home: const LoginPage(),
     );
   }
 }

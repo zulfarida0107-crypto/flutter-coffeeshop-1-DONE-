@@ -57,12 +57,28 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Daftar Desain Pesanan (Kue)',
-          style: TextStyle(color: Colors.white),
+        toolbarHeight: 85, // Tetap kasih ruang biar nggak nempel bawah
+        backgroundColor: const Color(0xFF674D43),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
         ),
-        backgroundColor: Colors.brown[700],
-        iconTheme: const IconThemeData(color: Colors.white),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, // Ratakan kiri semua
+          mainAxisSize: MainAxisSize.min, // Biar kotaknya nggak serakah tempat
+          children: [
+            const Text(
+              'Daftar Desain Pesanan',
+              style: TextStyle(color: Colors.white, fontSize: 22),
+            ),
+            const Text(
+              '(Kue Custom)',
+              style: TextStyle(color: Colors.white, fontSize: 22, height: 1.4),
+            ),
+          ],
+        ),
+        centerTitle: false,
       ),
       body: listDesain.isEmpty
           ? const Center(
@@ -176,7 +192,7 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text(
-          "Detail Desain Kue",
+          "Detail Desain Kue Custom",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         content: Column(
@@ -291,7 +307,9 @@ class _DesainPesananPageState extends State<DesainPesananPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(isEdit ? "Edit Desain Kue" : "Tambah Desain Kue"),
+        title: Text(
+          isEdit ? "Edit Desain Kue Custom" : "Tambah Desain Kue Custom",
+        ),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,

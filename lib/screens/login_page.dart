@@ -5,7 +5,7 @@ import 'home_page.dart';
 class LoginPage extends StatefulWidget {
   final bool isGuestMode;
 
-  const LoginPage({super.key, this.isGuestMode = false}); // ✅ FIX
+  const LoginPage({super.key, this.isGuestMode = false});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool _obscurePassword = true; // ✅ typo dibenerin
+  bool _obscurePassword = true;
 
   void _login() async {
     String username = usernameController.text.trim();

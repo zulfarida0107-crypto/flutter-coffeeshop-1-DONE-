@@ -443,10 +443,6 @@ class _PembayaranPesananPageState extends State<PembayaranPesananPage> {
                           icon: const Icon(Icons.edit, color: Colors.blue),
                           onPressed: () => _showEditStatusDialog(item),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => _confirmDelete(item),
-                        ),
                       ],
                     ),
                     onTap: () => _showPaymentDetail(item),
@@ -454,45 +450,6 @@ class _PembayaranPesananPageState extends State<PembayaranPesananPage> {
                 );
               },
             ),
-    );
-  }
-
-  // --- LOGIK KONFIRMASI HAPUS ---
-  void _confirmDelete(PesananEntity menu) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          "Konfirmasi Hapus",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        content: const Text("Apakah anda yakin menghapus pesanan ini?"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("TIDAK", style: TextStyle(color: Colors.grey)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () async {
-              await DatabaseHelper.getInstance().deletePesanan(menu.id!);
-
-              if (mounted) {
-                Navigator.pop(context);
-                _fetchData();
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Data berhasil dihapus permanen"),
-                    backgroundColor: Colors.brown,
-                  ),
-                );
-              }
-            },
-            child: const Text("YA", style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
     );
   }
 
