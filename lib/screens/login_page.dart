@@ -155,6 +155,96 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.brown[50],
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.brown.shade200),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.info_outline, size: 16, color: Colors.brown[800]),
+                              const SizedBox(width: 6),
+                              Text(
+                                "Pilih Akun Cepat (Klik untuk Isi):",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.brown[900],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                usernameController.text = "kasir";
+                                passwordController.text = "123";
+                              });
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: Colors.brown.shade100),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "👤 Kasir: kasir",
+                                    style: TextStyle(fontSize: 12, color: Colors.brown[800], fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "[Gunakan]",
+                                    style: TextStyle(fontSize: 11, color: Colors.brown[600], fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                usernameController.text = "admin";
+                                passwordController.text = "admin123";
+                              });
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: Colors.brown.shade100),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "🛡️ Admin: admin",
+                                    style: TextStyle(fontSize: 12, color: Colors.brown[800], fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "[Gunakan]",
+                                    style: TextStyle(fontSize: 11, color: Colors.brown[600], fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

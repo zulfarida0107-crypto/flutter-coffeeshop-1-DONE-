@@ -17,7 +17,7 @@ void main() {
     // Build our app and trigger a frame.
     // PERBAIKAN: Kami menambahkan parameter initialPage: 0 (index halaman pertama)
     // agar MyApp bisa dibuat (instantiated) sesuai dengan required parameter barunya.
-    await tester.pumpWidget(const MyApp(initialPage: 0));
+    await tester.pumpWidget(const MyApp(initialPage: Scaffold()));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
