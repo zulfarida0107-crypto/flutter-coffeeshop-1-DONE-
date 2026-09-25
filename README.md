@@ -35,25 +35,11 @@ Berikut adalah visualisasi antarmuka aplikasi Flutter pada emulator Android:
 
 | Fitur | Tampilan Dokumentasi | Deskripsi |
 | :--- | :---: | :--- |
-| **Halaman Login & Autentikasi** | <img src="docs/screenshots/ui_login.png" width="200" alt="Halaman Login"/> | Halaman autentikasi pengguna dengan proteksi sesi, validasi akun, serta tombol akses cepat role Kasir & Admin. |
-| **Dashboard Menu Utama** | <img src="docs/screenshots/ui_dashboard.png" width="200" alt="Dashboard Utama"/> | Menu beranda utama (grid navigasi) yang menghubungkan pengguna ke seluruh modul operasional coffee shop. |
-| **Katalog & Manajemen Menu Produk** | <img src="docs/screenshots/ui_menu_produk.png" width="200" alt="Daftar Menu Produk"/> | Menampilkan daftar menu minuman kopi, non-kopi, dan makanan beserta fitur tambah (floating button), ubah, dan hapus menu. |
-| **Daftar & Pembuatan Pesanan** | <img src="docs/screenshots/ui_daftar_pesanan.png" width="200" alt="Daftar Pesanan"/> | Pencatatan pesanan kasir (Point of Sale) untuk memilih menu belanja dengan kalkulasi total harga otomatis. |
-| **Kasir & Konfirmasi Pembayaran** | <img src="docs/screenshots/ui_pembayaran.png" width="200" alt="Pembayaran Pesanan"/> | Halaman kasir untuk validasi pembayaran tunai, kalkulasi uang kembalian, dan pembaruan status transaksi lunas. |
-| **Desain Custom Pesanan (Kue & Cup)** | <img src="docs/screenshots/ui_desain_pesanan.png" width="200" alt="Desain Custom Pesanan"/> | Fitur unggah foto referensi pesanan khusus via kamera/galeri beserta catatan instruksi tambahan bagi barista/dapur. |
-| **Manajemen Pengguna (User)** | <img src="docs/screenshots/ui_manajemen_user.png" width="200" alt="Manajemen User"/> | Pengelolaan akun pengguna internal kafe (Admin dan Kasir), penambahan akun, serta pembaruan data pengguna. |
-| **Daftar Pesan Masuk & Kontak** | <img src="docs/screenshots/ui_pesan_masuk.png" width="200" alt="Pesan Kontak Masuk"/> | Kotak masuk penerimaan pesan, kritik, saran, serta form kontak dari pelanggan kafe. |
-
-### 🗄️ Dokumentasi Arsitektur Backend & Database
-
-| Komponen | Tampilan Dokumentasi | Deskripsi |
-| :--- | :---: | :--- |
-| **Endpoint Swagger / API Docs** | <img src="docs/screenshots/api_docs_postman.png" width="280" alt="API Docs Postman"/> | Dokumentasi pengetesan endpoint REST API (User, Menu, Pesanan, Desain Custom, Kontak) menggunakan Postman. |
-| **Koneksi Database MySQL** | <img src="docs/screenshots/database_mysql_heidisql.png" width="280" alt="Database HeidiSQL"/> | Struktur tabel database `ta_db_coffeeshop` pada HeidiSQL: `desain_pesanan`, `menu_produk`, `pesanan`, `pesan_kontak`, `user`. |
-| **Log Aktivitas Server** | <img src="docs/screenshots/server_log_console.png" width="280" alt="Log Server Console"/> | Tampilan log konsol saat server Spring Boot menerima request transaksi. |
+| **Halaman Login** | <img src="./docs/screenshots/login.png" width="220" alt="Halaman Login"/> | Halaman autentikasi login pengguna dengan validasi akun serta form input username dan password. |
+| **Dashboard Admin** | <img src="./docs/screenshots/dashboard.png" width="220" alt="Dashboard Admin"/> | Tampilan menu utama (dashboard) untuk mengakses seluruh modul operasional Coffee Shop (Manajemen User, Menu Produk, Daftar Pesanan, Desain Pesanan Kue Custom, Pesan Masuk, dan Pembayaran). |
 
 > [!TIP]
-> Semua tangkapan layar antarmuka aplikasi dan backend tersimpan di folder `docs/screenshots/` dan siap ditampilkan secara otomatis saat repositori dibuka di GitHub.
+> Tangkapan layar antarmuka aplikasi tersimpan di folder `docs/screenshots/` dan siap ditampilkan secara otomatis saat repositori dibuka di GitHub.
 
 ---
 
