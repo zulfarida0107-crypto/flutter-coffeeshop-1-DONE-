@@ -4,21 +4,6 @@ Sistem Manajemen Pemesanan & Kasir (Point of Sale) Coffee Shop berbasis mobile m
 
 ---
 
-## 📌 Daftar Isi
-- [Tentang Aplikasi](#-tentang-aplikasi)
-- [Dokumentasi & Demo](#-dokumentasi--demo)
-- [Fitur Utama](#-fitur-utama)
-- [Tech Stack & Dependencies](#-tech-stack--dependencies)
-- [Struktur Direktori](#-struktur-direktori)
-- [Panduan Menjalankan Proyek](#-panduan-menjalankan-proyek)
-  - [1. Menjalankan di Android Studio (Emulator)](#1-menjalankan-di-android-studio-emulator)
-  - [2. Menjalankan via Terminal / CLI](#2-menjalankan-via-terminal--cli)
-  - [3. Perintah Kontrol Saat Running (Hot Reload)](#3-perintah-kontrol-saat-running-hot-reload)
-  - [4. Build APK Release](#4-build-apk-release)
-- [Akun Demo & Akses](#-akun-demo--akses)
-
----
-
 ## 📖 Tentang Aplikasi
 
 Aplikasi **Flutter Coffee Shop** dirancang untuk memudahkan operasional kafe dalam mengelola alur bisnis harian:
