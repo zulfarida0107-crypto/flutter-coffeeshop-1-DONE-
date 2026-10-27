@@ -1,62 +1,62 @@
 # ☕ Flutter Coffee Shop App
 
-Sistem Manajemen Pemesanan & Kasir (Point of Sale) Coffee Shop berbasis mobile menggunakan framework **Flutter** yang dilengkapi dengan manajemen menu, multi-item order, pencatatan transaksi pembayaran, upload desain kustom pesanan, manajemen pengguna, serta pengiriman pesan kontak.
+A mobile-based Point of Sale (POS) and order management system for coffee shops built using the **Flutter** framework, featuring menu management, multi-item ordering, payment transaction recording, custom order design uploads, user management, and contact message delivery.
 
 ---
 
-## 📖 Tentang Aplikasi
+## 📖 About the Application
 
-Aplikasi **Flutter Coffee Shop** dirancang untuk memudahkan operasional kafe dalam mengelola alur bisnis harian:
-1. Membantu kasir mencatat pesanan pelanggan secara cepat dan akurat.
-2. Memfasilitasi pesanan khusus (custom order) dengan fitur upload foto/desain referensi.
-3. Menghitung total belanja, pembayaran tunai, dan uang kembalian secara otomatis.
-4. Terintegrasi dengan database lokal (SQLite) serta arsitektur backend REST API (Spring Boot + MySQL) untuk sinkronisasi data transaksi.
+The **Flutter Coffee Shop** application is designed to simplify daily cafe operational workflows:
+1. Helping cashiers record customer orders quickly and accurately.
+2. Facilitating custom orders with photo/design reference upload features.
+3. Automatically calculating shopping totals, cash payments, and change.
+4. Integrated with local database storage (SQLite) as well as a backend REST API architecture (Spring Boot + MySQL) for transaction data synchronization.
 
 ---
 
-## 📷 Dokumentasi & Demo
+## 📷 Documentation & Demo
 
-Berikut adalah visualisasi antarmuka aplikasi Flutter pada emulator Android:
+The following is a visualization of the Flutter application interface on an Android emulator:
 
-| Fitur | Tampilan Dokumentasi | Deskripsi |
+| Feature | Documentation Preview | Description |
 | :--- | :---: | :--- |
-| **Halaman Login** | <img src="./docs/screenshots/login.png" width="220" alt="Halaman Login"/> | Halaman autentikasi login pengguna dengan validasi akun serta form input username dan password. |
-| **Dashboard Admin** | <img src="./docs/screenshots/dashboard.png" width="220" alt="Dashboard Admin"/> | Tampilan menu utama (dashboard) untuk mengakses seluruh modul operasional Coffee Shop (Manajemen User, Menu Produk, Daftar Pesanan, Desain Pesanan Kue Custom, Pesan Masuk, dan Pembayaran). |
+| **Login Page** | <img src="./docs/screenshots/login.png" width="220" alt="Login Page"/> | User login authentication page with account validation and username/password input forms. |
+| **Admin Dashboard** | <img src="./docs/screenshots/dashboard.png" width="220" alt="Admin Dashboard"/> | Main menu dashboard to access all Coffee Shop operational modules (User Management, Product Menu, Order List, Custom Cake Order Design, Incoming Messages, and Payments). |
 
 > [!TIP]
-> Tangkapan layar antarmuka aplikasi tersimpan di folder `docs/screenshots/` dan siap ditampilkan secara otomatis saat repositori dibuka di GitHub.
+> Application interface screenshots are stored in the `docs/screenshots/` folder and are ready to be displayed automatically when the repository is opened on GitHub.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Key Features
 
-- 🔐 **Autentikasi & Multi-Role Pengguna**:
-  - Login dengan autentikasi berbasis pengguna (`Admin` & `Kasir`).
-  - Manajemen user (Tambah, Ubah, Hapus akun kasir/admin).
-  - *Session Protection*: Proteksi sesi otomatis saat aplikasi diminimalkan (background).
+- 🔐 **Authentication & Multi-Role Users**:
+  - Login with role-based user authentication (`Admin` & `Cashier`).
+  - User management (Add, Update, Delete cashier/admin accounts).
+  - *Session Protection*: Automatic session protection when the application is minimized (background).
 
-- 📋 **Katalog & Manajemen Menu Produk**:
-  - Tampilan daftar menu kopi, non-kopi, dan camilan/snack.
-  - CRUD Menu (Create, Read, Update, Delete produk beserta harga, kategori, dan deskripsi).
+- 📋 **Catalog & Product Menu Management**:
+  - Display list of coffee, non-coffee, and snack menus.
+  - Menu CRUD (Create, Read, Update, Delete products along with prices, categories, and descriptions).
 
-- 🛒 **Pencatatan Pesanan (Point of Sale)**:
-  - Pembuatan tiket pesanan dengan multi-item menu.
-  - Perhitungan otomatis subtotal per menu dan total harga akumulatif.
-  - Pelacakan status pesanan (*Pending*, *Diproses*, *Selesai*).
+- 🛒 **Order Recording (Point of Sale)**:
+  - Ticket generation with multi-item menus.
+  - Automatic subtotal calculation per menu and cumulative total price.
+  - Order status tracking (*Pending*, *Processing*, *Completed*).
 
-- 💳 **Kasir & Konfirmasi Pembayaran**:
-  - Halaman kasir untuk validasi nominal pembayaran tunai pelanggan.
-  - Kalkulasi instan untuk jumlah uang kembalian.
-  - Konfirmasi status pelunasan transaksi pesanan.
+- 💳 **Cashier & Payment Confirmation**:
+  - Cashier page to validate customer cash payment amounts.
+  - Instant calculation for change/return money.
+  - Transaction payment status confirmation.
 
-- 🎨 **Desain Custom Pesanan**:
-  - Fitur pemesanan khusus bagi pelanggan (misal: custom latte art, topper cake khusus, atau kemasan hampers).
-  - Integrasi kamera & galeri (`image_picker`) untuk mengunggah foto desain/referensi.
-  - Catatan instruksi khusus untuk barista/dapur.
+- 🎨 **Custom Order Design**:
+  - Special ordering feature for customers (e.g., custom latte art, special cake toppers, or hampers packaging).
+  - Camera & gallery integration (`image_picker`) to upload design photos/references.
+  - Special instruction notes for baristas/kitchen staff.
 
-- ✉️ **Pesan Masuk & Kontak**:
-  - Formulir kirim feedback, kritik, saran, atau pertanyaan dari pelanggan.
-  - Dashboard pesan kontak masuk untuk pengelola.
+- ✉️ **Messages & Contact**:
+  - Form to send feedback, critiques, suggestions, or inquiries from customers.
+  - Incoming contact message dashboard for management.
 
 ---
 
@@ -64,86 +64,86 @@ Berikut adalah visualisasi antarmuka aplikasi Flutter pada emulator Android:
 
 - **Frontend / Client**: [Flutter](https://flutter.dev/) (Dart 3.x)
 - **Local Storage / Persistence**:
-  - `sqflite`: Penyimpanan basis data relasional offline-first
-  - `shared_preferences`: Manajemen sesi pengguna & status navigasi
+  - `sqflite`: Offline-first relational database storage
+  - `shared_preferences`: User session management & navigation status
 - **Device Features**:
-  - `image_picker`: Akses galeri dan kamera untuk upload foto desain
-  - `url_launcher`: Membuka tautan eksternal
-- **Backend / API (Opsional / Integrasi)**:
+  - `image_picker`: Access gallery and camera for design photo uploads
+  - `url_launcher`: Open external links
+- **Backend / API (Optional / Integration)**:
   - Java Spring Boot REST API
-  - MySQL (`ta_db_coffeeshop`) dikelola via HeidiSQL / phpMyAdmin
+  - MySQL (`ta_db_coffeeshop`) managed via HeidiSQL / phpMyAdmin
 
 ---
 
-## 🚀 Panduan Menjalankan Proyek
+## 🚀 Guide to Run the Project
 
-### 1. Menjalankan di Android Studio (Emulator)
+### 1. Running in Android Studio (Emulator)
 
-1. Buka software **Android Studio**.
-2. Buka menu **Tools** > **Device Manager** (atau klik ikon ponsel di toolbar samping kanan).
-3. Pada daftar Virtual Device, klik tombol **Play** (▶️) pada emulator pilihan Anda (misalnya `Medium Phone API 36` atau `Pixel`).
-4. Tunggu beberapa detik hingga sistem Android pada emulator menyala dan masuk ke layar beranda (*Home Screen*).
-5. Buka proyek ini di Android Studio atau VS Code.
-6. Pada *Device Selector* (dropdown perangkat), pilih nama emulator yang sedang berjalan.
-7. Tekan tombol **Run** (ikon segitiga hijau ▶️) atau tekan shortcut `Shift + F10` (Android Studio) / `F5` (VS Code).
+1. Open **Android Studio**.
+2. Open the **Tools** menu > **Device Manager** (or click the mobile icon in the right-side toolbar).
+3. In the Virtual Device list, click the **Play** (▶️) button on your chosen emulator (e.g., `Medium Phone API 36` or `Pixel`).
+4. Wait a few seconds until the Android system on the emulator boots up and enters the Home Screen.
+5. Open this project in Android Studio or VS Code.
+6. In the *Device Selector* dropdown, choose the running emulator's name.
+7. Click the **Run** button (green triangle icon ▶️) or press shortcut `Shift + F10` (Android Studio) / `F5` (VS Code).
 
 ---
 
-### 2. Menjalankan via Terminal / CLI
+### 2. Running via Terminal / CLI
 
-Pastikan Flutter SDK sudah terpasang dan dikenali di PATH sistem Anda.
+Ensure the Flutter SDK is installed and added to your system's PATH.
 
-1. **Unduh Dependensi**:
+1. **Download Dependencies**:
    ```bash
    flutter pub get
    ```
 
-2. **Cek Perangkat yang Aktif**:
+2. **Check Active Devices**:
    ```bash
    flutter devices
    ```
-   *Contoh output yang menunjukkan emulator siap:*
+   *Example output showing a ready emulator::*
    ```text
    sdk gphone64 x86 64 (mobile) • emulator-5554 • android-x64 • Android 16 (API 36)
    ```
 
-3. **Jalankan Aplikasi ke Emulator**:
+3. **Run Application on Emulator**:
    ```bash
    flutter run -d emulator-5554
    ```
-   *(Atau cukup ketik `flutter run` jika hanya ada satu perangkat emulator aktif)*.
+   *(Or simply type flutter run if there is only one active emulator device)*.
 
-4. Tunggu hingga proses build `assembleDebug` selesai dan aplikasi muncul di layar emulator.
-
----
-
-### 3. Perintah Kontrol Saat Running (Hot Reload)
-
-Ketika aplikasi sedang berjalan melalui terminal, gunakan tombol berikut:
-- **`r`** (huruf kecil) : **Hot Reload** (memperbarui perubahan kode UI secara instan tanpa restart).
-- **`R`** (huruf kapital) : **Hot Restart** (mereset state dan menjalankan ulang aplikasi dari awal).
-- **`h`** : Menampilkan daftar bantuan shortcut di terminal.
-- **`q`** : Menghentikan aplikasi yang sedang berjalan.
+4. Wait until the `assembleDebug` build process completes and the application appears on the emulator screen.
 
 ---
 
-### 4. Build APK Release
+### 3. Control Commands While Running (Hot Reload)
 
-Untuk menghasilkan file APK siap pasang di perangkat fisik Android:
+When the application is running through the terminal, use the following keys:
+- **`r`** (lowercase) : **Hot Reload** (instantly updates UI code changes without restarting).
+- **`R`** (uppercase) : **Hot Restart** (resets state and restarts the application from scratch).
+- **`h`** : Show terminal shortcut help list.
+- **`q`** : Stop the running application.
+
+---
+
+### 4. Build Release APK
+
+To generate a ready-to-install APK file for a physical Android device:
 ```bash
 flutter build apk --release
 ```
-File APK keluaran akan tersimpan di:
+The output APK file will be saved at:
 ```text
 build/app/outputs/flutter-apk/app-release.apk
 ```
 
 ---
 
-## 🔑 Akun Demo & Akses
+## 🔑 Demo Accounts & Access
 
-| Role | Username | Password Default | Keterangan |
+| Role | Username | Default Password | Description |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin` | `admin123` | Akses 
+| **Admin** | `admin` | `admin123` | Full access permissions
 
-*(Kredensial dapat disesuaikan atau didaftarkan melalui menu registrasi/manajemen user pada aplikasi).*
+*(Credentials can be adjusted or registered through the app's registration/user management menu).*
